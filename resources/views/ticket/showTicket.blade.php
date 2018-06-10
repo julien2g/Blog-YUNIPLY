@@ -5,17 +5,28 @@
 
 @section('content')
     <h1>{{$ticket->subject}}</h1>
-    <h5>{{$ticket->status}}</h5>
+    <h6>Status : </h6><h6>{{$ticket->status}}</h6>
     <p>{{$ticket->content}}</p>
+    @if($ticket->creator_id == Auth::user()->id)
     <a href="{{route('update', ['slug' => $ticket->slug])}}"> <button class="btn btn-info">Update</button></a>
     <a href="{{route('delete', ['slug' => $ticket->slug])}}"><button class="btn btn-danger">Delete</button></a>
-<br/>
+    @endif
+    <br/>
     <br/>
 
+    @if($messages->count() != 0)
     <h2>Messages : </h2>
     @foreach($messages as $message )
-        <p>{{$message->content}}</p>
+        <nav>
+            <ul>
+                <li>
+                    {{$message->content}}
+                </li>
+
+            </ul>
+        </nav>
     @endforeach
+    @endif
     <br/>
     @if($ticket->status == 'open')
     <form method="post" action="{{route('createMessage')}}">

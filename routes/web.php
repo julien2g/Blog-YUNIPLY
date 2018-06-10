@@ -12,7 +12,11 @@
 */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [
+    'as' => 'listTicket', // NAME ROUTE
+    'uses' => 'TicketController@listTicket' // NAME FCT
+]);
 
 
 Route::get('/', [
